@@ -7,7 +7,7 @@ const app = new express()
 
 app.use(express.json())
 
-app.post('/create-notification', (req, res) => {
+app.post('/notification', (req, res) => {
 
 
     console.log(req.body)
@@ -27,9 +27,20 @@ app.post('/create-notification', (req, res) => {
 
 app.get('/get-notifications', (req, res) => {
 
-    db.ge
+    let result = db.getNotifications()
+
+    res.json(result)
+    
 })
 
+app.delete('/notification/:id', async (req, res) => {
+    const notificationId = req.params.id 
+
+    let result = db.deleteNotification(notificationId)
+
+    res.json(result)
+
+})
 app.listen('9000', ()=> {
     console.log('app running successfully in port 9000')
 })
